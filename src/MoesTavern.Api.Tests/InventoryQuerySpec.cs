@@ -10,7 +10,6 @@ using GraphQL;
 using Moq;
 using Xunit;
 using Microsoft.AspNetCore.Http;
-using GraphQL.Types;
 
 namespace MoesTavern.Api.Tests
 {
@@ -19,8 +18,8 @@ namespace MoesTavern.Api.Tests
         private readonly InventoryQuery _testObject;
         private readonly IHttpContextAccessor _fakeContextAccessor;
         private readonly Mock<IInventoryRepository> _mockInventory;
-        private List<Beer> _testData { get; } =
-            new List<Beer>
+        private List<Beer> TestData =>
+            new()
             {
                 new Beer { Id = new Random().Next(), Barrelage = new Random().Next(), Name = Guid.NewGuid().ToString(), Style = Guid.NewGuid().ToString() },
                 new Beer { Id = new Random().Next(), Barrelage = new Random().Next(), Name = Guid.NewGuid().ToString(), Style = Guid.NewGuid().ToString() },
@@ -46,7 +45,7 @@ namespace MoesTavern.Api.Tests
         [Fact]
         public async void Constructor_WhatsOnTap_ReturnsAllItemsInInventory()
         {
-            _mockInventory.Setup(m => m.All(It.IsAny<Guid>())).ReturnsAsync(_testData);
+            _mockInventory.Setup(m => m.All(It.IsAny<Guid>())).ReturnsAsync(TestData);
 
             var field = _testObject.GetField("whatsOnTap");
             var actual = await (Task<object>)field.Resolver
@@ -54,7 +53,7 @@ namespace MoesTavern.Api.Tests
 
             _mockInventory.Verify(m => m.All(It.IsAny<Guid>()));
 
-            Assert.Equal(_testData.Count, ((List<Beer>)actual).Count);
+            Assert.Equal(TestData.Count, ((List<Beer>)actual).Count);
         }
 
         [Fact]
@@ -66,7 +65,7 @@ namespace MoesTavern.Api.Tests
         [Fact]
         public async void Constructor_FindBeer_RetunsInventoryItem()
         {
-            var expected = _testData.First();
+            var expected = TestData.First();
 
             _mockInventory.Setup(m => m.Find(It.IsAny<Guid>(), It.IsAny<int>())).ReturnsAsync(expected);
 
