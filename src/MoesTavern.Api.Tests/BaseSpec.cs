@@ -1,4 +1,5 @@
 using System;
+using System.Diagnostics;
 using System.Threading.Tasks;
 using GraphQL;
 using Xunit;
@@ -11,6 +12,8 @@ namespace MoesTavern.Api.Tests
     {
         protected async Task ThrowsUnauthorizedAccessException(FieldType field, IHttpContextAccessor accessor)
         {
+            Debug.Assert(accessor.HttpContext is not null, "accessor.HttpContext cannot be null");
+
             accessor.HttpContext.Request.Headers.Clear();
             await Assert.ThrowsAsync<UnauthorizedAccessException>(async () =>
                 await (Task<object>)field.Resolver.Resolve(new ResolveFieldContext())
