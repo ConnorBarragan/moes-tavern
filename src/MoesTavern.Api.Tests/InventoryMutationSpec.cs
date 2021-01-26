@@ -104,7 +104,7 @@ namespace MoesTavern.Api.Tests
         [InlineData(ContainerType.SixthBarrel, 6, 1, 0.001)]
         [InlineData(ContainerType.QuarterBarrel, 3, 1, .25)]
         [InlineData(ContainerType.HalfBarrel, 2, 1, 0)]
-        public async void Constructor_CallsSoldBeer_CalcuatingCorrectBarrelage(ContainerType container, int quantitySold, double startingBarrelage, double expectedBarrelage)
+        public async void Constructor_CallsSoldBeer_CalculatingCorrectBarrelage(ContainerType container, int quantitySold, double startingBarrelage, double expectedBarrelage)
         {
             var expectedInventoryId = new Random().Next();
 

@@ -63,7 +63,7 @@ namespace MoesTavern.Api.Tests
         }
 
         [Fact]
-        public async void Constructor_FindBeer_RetunsInventoryItem()
+        public async void Constructor_FindBeer_ReturnsInventoryItem()
         {
             var expected = TestData.First();
 
