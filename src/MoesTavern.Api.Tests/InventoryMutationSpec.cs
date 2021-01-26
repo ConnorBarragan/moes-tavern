@@ -54,7 +54,7 @@ namespace MoesTavern.Api.Tests
                             {"beer", new Dictionary<string, object>
                                 {
                                     { "id", expected.Id },
-                                    { "barrelage", Convert.ToDecimal(expected.Barrelage) },
+                                    { "barrelage", expected.Barrelage },
                                     { "name", expected.Name },
                                     { "style", expected.Style },
                                 }
@@ -63,10 +63,10 @@ namespace MoesTavern.Api.Tests
 
             _mockInventory.Verify(m => m.Add(It.IsAny<Guid>(), It.IsAny<Beer>()));
 
-            Assert.Equal(expected.Id, actual.Id);
-            Assert.Equal(expected.Barrelage, actual.Barrelage);
-            Assert.Equal(expected.Name, actual.Name);
-            Assert.Equal(expected.Style, actual.Style);
+            Assert.Equal(expected.Id, actual?.Id);
+            Assert.Equal(expected.Barrelage, actual?.Barrelage);
+            Assert.Equal(expected.Name, actual?.Name);
+            Assert.Equal(expected.Style, actual?.Style);
         }
 
         [Fact]
@@ -130,10 +130,10 @@ namespace MoesTavern.Api.Tests
             _mockInventory.Verify(m => m.Find(It.IsAny<Guid>(), expectedInventoryId));
             _mockInventory.Verify(m => m.Update(It.IsAny<Guid>(), expectedInventoryId, expectedBarrelage));
 
-            Assert.Equal(expected.Id, actual.Id);
-            Assert.Equal(expected.Barrelage, actual.Barrelage);
-            Assert.Equal(expected.Name, actual.Name);
-            Assert.Equal(expected.Style, actual.Style);
+            Assert.Equal(expected.Id, actual?.Id);
+            Assert.Equal(expected.Barrelage, actual?.Barrelage);
+            Assert.Equal(expected.Name, actual?.Name);
+            Assert.Equal(expected.Style, actual?.Style);
         }
 
         [Fact]

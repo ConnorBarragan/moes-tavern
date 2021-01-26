@@ -8,7 +8,7 @@ namespace MoesTavern.Api.Model
         public AddBeerGraphType()
         {
             Field("Id", d => d.Id, type: typeof(IntGraphType));
-            Field("Barrelage", d => d.Barrelage, type: typeof(DecimalGraphType));
+            Field("Barrelage", d => d.Barrelage, type: typeof(FloatGraphType));
             Field("Name", d => d.Name, type: typeof(StringGraphType));
             Field("Style", d => d.Style, type: typeof(StringGraphType));
         }
